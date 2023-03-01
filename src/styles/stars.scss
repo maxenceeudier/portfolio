@@ -1,0 +1,276 @@
+$star-animation-duration: 12;
+
+@mixin create-star {
+  top: random(101) - 1 + vh;
+  left: random(101) - 1 + vw;
+  opacity: random(100) * 0.01 + 0.1;
+}
+
+@keyframes animateStars {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, 100vh, 0); }
+}
+
+.stars, .stratosphere {
+    visibility: visible;
+    position: fixed;
+}
+.stars{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.stratosphere {
+  left: -300vw;
+  right: -300vw;
+  top: 0;
+  bottom: 0;
+  background-image: radial-gradient(ellipse at bottom, rgba(#3D65F2, 0.25), rgba(#000, 0) 35%);
+}
+
+.stars {
+    $self: &;
+  
+    &--animated {
+      #{$self}__rear,
+      #{$self}__center {
+        animation-name: animateStars;
+        // chrome chokes on this animation when there's a large number of stars being animated so it's been toned down for performance
+      }
+    }
+  
+    &__star {
+      &,
+      &::after {
+        position: absolute;
+        z-index: -1;
+        background-color: white;
+        border-radius: 50%;
+        width: 2px;
+        height: 2px;
+      }
+  
+      &::after {
+        content: "";
+        display: block;
+        margin-top: -100vh;
+      }
+    }
+  
+    &__rear,
+    &__center,
+    &__front {
+      position: absolute;
+      z-index: -1;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      animation: linear infinite;
+    }
+  
+    &__rear {
+      animation-duration: #{$star-animation-duration * 4}s;
+  
+      @for $i from 1 through 150 {
+        #{$self}__star:nth-of-type(#{$i}) {
+          @include create-star;
+        }
+      }
+    }
+  
+    &__center {
+      animation-duration: #{$star-animation-duration * 5}s;
+  
+      #{$self}__star {
+        &,
+        &::after {
+          width: 5px;
+          height: 5px;
+        }
+      }
+  
+      @for $i from 1 through 100 {
+        #{$self}__star:nth-of-type(#{$i}) {
+          @include create-star;
+        }
+      }
+    }
+  
+    &__front {
+      animation-duration: #{$star-animation-duration * 2}s;
+      animation-delay: -#{$star-animation-duration * 1}s;
+  
+      #{$self}__star {
+        &,
+        &::after {
+          width: 3px;
+          height: 3px;
+        }
+      }
+  
+      @for $i from 1 through 50 {
+        #{$self}__star:nth-of-type(#{$i}) {
+          @include create-star;
+        }
+      }
+    }
+  }
+
+  .section
+  {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    min-height: 100%;
+    color: rgba(0, 0, 0, 0);
+  }
+
+  .section.one
+  {
+    background-color: #000;
+  }
+
+  .section.two
+  {
+    background-color: #fff;
+  }
+
+  /*.section.one::before
+  {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0px;
+    width: 100vw;
+    height: 100px;
+    background: linear-gradient(to top, #fff, transparent);
+    z-index: 10;
+  }*/
+
+  .montainsContainer
+  {
+    width: 100%;
+    height: 100%;
+  }
+
+  .secondMontains
+  {
+    background: url("../assets/secondMontains.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  .firstMontains
+  {
+    background: url("../assets/firstMontains.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ground
+  {
+    background: url("../assets/ground.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+  }
+
+  .profil
+  {
+    background: url("../assets/profil2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 0px;
+    z-index: 4;
+    width: 50%;
+    height: 50%;
+  }
+
+.scrollDown
+{
+  color: black;
+  font-size: 18px;
+  text-align: center;
+  position: absolute;
+  bottom: 5%;
+  left: 45%;
+  width: 10%;
+  padding: 10px;
+  z-index: 5;
+  border: 1px solid black;
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+}
+
+.Title
+{
+  position: absolute;
+  z-index: 2;
+  top: 40%;
+  right: 100px;
+  color:#000;
+  font-size: 100px;
+}
+
+.moune
+{
+  position: absolute;
+  right: 30%;
+  top: 10px;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 100px 10px rgba(240, 177, 177, 0.763);
+}
+
+
+//a bouger
+.containerScrollHorizon {
+  z-index: 99;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  top: 30px;
+  transform: translateX(0%);
+}
+
+.containerScrollHorizon span
+{
+  white-space: pre;
+}
+
+.textScroll {
+  color: #fff;
+  font-size: 20px;
+  white-space: nowrap;
+  animation: scrollTxt 90s linear infinite;
+}
+
+@keyframes scrollTxt {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
