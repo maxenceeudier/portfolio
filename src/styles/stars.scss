@@ -1,4 +1,9 @@
 $star-animation-duration: 12;
+$dark1: #161617;
+$dark2: #b0aab7;
+$bright: #fff;
+$funky1: #adffdd;
+$funky2: #d77bf0;
 
 @mixin create-star {
   top: random(101) - 1 + vh;
@@ -24,11 +29,11 @@ $star-animation-duration: 12;
 }
 
 .stratosphere {
-  left: -300vw;
-  right: -300vw;
+  left: -100vw;
+  right: -100vw;
   top: 0;
   bottom: 0;
-  background-image: radial-gradient(ellipse at bottom, rgba(#3D65F2, 0.25), rgba(#000, 0) 35%);
+  background-image: radial-gradient(ellipse at bottom, rgba($funky1, 1), rgba($dark1, 0.6) 48%);
 }
 
 .stars {
@@ -120,6 +125,19 @@ $star-animation-duration: 12;
     }
   }
 
+
+  .noise
+  {
+    background-image: url('https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png');
+    background-position: 0px 0px;
+    background-size: 200px;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;
+    background-attachment: fixed;
+  }
+
   .section
   {
     position: relative;
@@ -132,25 +150,39 @@ $star-animation-duration: 12;
 
   .section.one
   {
-    background-color: #000;
+    background-color: $dark1;
   }
 
   .section.two
   {
-    background-color: #fff;
+    background:  $bright;
+    height: 200vh;
   }
 
-  /*.section.one::before
+  .section.tree
+  {
+    background: url('https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png'),  #161617;
+    background-position: 0px 0px;
+    background-size: 270px;
+    height: 100vh;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .section.one::before
   {
     content: '';
     position: absolute;
-    bottom: -20px;
+    bottom: 0px;
     left: 0px;
     width: 100vw;
     height: 100px;
-    background: linear-gradient(to top, #fff, transparent);
+    background: linear-gradient(to top, $bright, transparent);
     z-index: 10;
-  }*/
+  }
 
   .montainsContainer
   {
@@ -197,7 +229,8 @@ $star-animation-duration: 12;
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 0px;
+    bottom: -600px;
+    left: 100px;
     z-index: 4;
     width: 50%;
     height: 50%;
@@ -222,24 +255,30 @@ $star-animation-duration: 12;
 .Title
 {
   position: absolute;
-  z-index: 2;
-  top: 40%;
+  z-index: 0;
+  top: 45%;
   right: 100px;
-  color:#000;
-  font-size: 100px;
+  color: $funky1;
+  font-size: 50px;
+  //font-family: 'Lacquer', cursive;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 3px 3px 0px  $bright;
 }
 
 .moune
 {
   position: absolute;
-  right: 30%;
-  top: 10px;
+  overflow: hidden;
+  right: 45%;
+  top: -110px;
+  z-index: 1;
   backdrop-filter: blur(3px);
-  background-color: rgba(255, 255, 255, 0.9);
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  box-shadow: 0px 0px 100px 10px rgba(240, 177, 177, 0.763);
+  background-image: url('https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png');
+  background-position: 0px 0px;
+  background-size: 9px 9px;
 }
 
 
@@ -249,9 +288,13 @@ $star-animation-duration: 12;
   display: flex;
   overflow: hidden;
   width: 100%;
-  position: absolute;
-  top: 30px;
+  height: 40px;
+  position: fixed;
+  top: 0px;
+  padding-top: 20px;
   transform: translateX(0%);
+  backdrop-filter: blur(4px);
+  font-family: 'Saira', sans-serif;
 }
 
 .containerScrollHorizon span
@@ -260,7 +303,7 @@ $star-animation-duration: 12;
 }
 
 .textScroll {
-  color: #fff;
+  color: $bright;
   font-size: 20px;
   white-space: nowrap;
   animation: scrollTxt 90s linear infinite;
@@ -273,4 +316,81 @@ $star-animation-duration: 12;
   100% {
     transform: translate(-100%, 0);
   }
+}
+
+//a bouger
+.presentationContainer
+{
+  width: 60%;
+  margin-left: 20%;
+  text-align: start;
+  margin-top: 115vh;
+  z-index: 2;
+  font-family: 'Saira', sans-serif;
+  position: relative;
+  font-size: 30px;
+  color: $bright;
+}
+
+#textWrite strong
+{
+  font-size: 20px;
+  font-family: 'Press Start 2P', cursive;
+  color:$funky1;
+}
+
+#textWrite h1
+{ 
+  font-size: 30px;
+}
+
+
+#textWrite p
+{
+  color: $dark2;
+  font-size: 20px;
+}
+
+//hardSkills
+.hardSkills
+{
+  color: $funky1;
+  position: absolute;
+  width: 60%;
+  z-index: 7;
+  height: 600px;
+}
+
+.hardSkillsContainer
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 40px;
+  text-shadow: 0px 0px 200px $funky1;
+}
+
+.logo
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  filter: grayscale(100%);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  //border: 1px solid $dark2;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  z-index: 15;
+}
+
+.logo:hover
+{
+  filter: grayscale(0%);
 }
