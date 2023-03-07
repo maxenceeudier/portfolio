@@ -1,9 +1,10 @@
 $star-animation-duration: 12;
 $dark1: #161617;
-$dark2: #b0aab7;
+$dark2: #727272;
 $bright: #fff;
-$funky1: #adffdd;
-$funky2: #d77bf0;
+//$bright: linear-gradient(135deg, #295fd5, #9d8ce0);
+$funky2: #adffdd;
+$funky1: #9d8ce0;
 
 @mixin create-star {
   top: random(101) - 1 + vh;
@@ -29,8 +30,6 @@ $funky2: #d77bf0;
 }
 
 .stratosphere {
-  left: -100vw;
-  right: -100vw;
   top: 0;
   bottom: 0;
   background-image: radial-gradient(ellipse at bottom, rgba($funky1, 1), rgba($dark1, 0.6) 48%);
@@ -155,20 +154,31 @@ $funky2: #d77bf0;
 
   .section.two
   {
-    background:  $bright;
-    height: 200vh;
+    background: $bright;
+    height: 160vh;
+    background: transparent;
   }
 
   .section.tree
   {
-    background: url('https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png'),  #161617;
-    background-position: 0px 0px;
-    background-size: 270px;
-    height: 100vh;
+    background: transparent;
+    width: 100vw;
     z-index: 5;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
+  }
+
+  .section.four
+  {
+    background: transparent;
+    margin-top: 300px;
+    overflow: visible;
+    width: 100%;
+    margin-left: 0%;
+    height: 70vh;
+    z-index: 5;
   }
 
 
@@ -269,16 +279,18 @@ $funky2: #d77bf0;
 {
   position: absolute;
   overflow: hidden;
+  padding: 20px;
   right: 45%;
   top: -110px;
-  z-index: 1;
+  z-index: 3;
   backdrop-filter: blur(3px);
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-image: url('https://uploads-ssl.webflow.com/62e3ee10882dc50bcae8d07a/631a5d4631d4c55a475f3e34_noise-50.png');
-  background-position: 0px 0px;
-  background-size: 9px 9px;
+  background: $bright;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -321,21 +333,21 @@ $funky2: #d77bf0;
 //a bouger
 .presentationContainer
 {
-  width: 60%;
-  margin-left: 20%;
+  width: 700px;
+  height: 600px;
   text-align: start;
-  margin-top: 115vh;
-  z-index: 2;
   font-family: 'Saira', sans-serif;
-  position: relative;
+  position: fixed;
+  z-index: 99;
   font-size: 30px;
-  color: $bright;
+  color: $dark1;
 }
 
 #textWrite strong
 {
   font-size: 20px;
   font-family: 'Press Start 2P', cursive;
+  text-shadow: 1px 1px $dark2;
   color:$funky1;
 }
 
@@ -347,7 +359,7 @@ $funky2: #d77bf0;
 
 #textWrite p
 {
-  color: $dark2;
+  color: $dark1;
   font-size: 20px;
 }
 
@@ -370,7 +382,7 @@ $funky2: #d77bf0;
   align-items: center;
   font-family: 'Press Start 2P', cursive;
   font-size: 40px;
-  text-shadow: 0px 0px 200px $funky1;
+  text-shadow: 5px 5px 0px $dark2;
 }
 
 .logo
@@ -383,7 +395,9 @@ $funky2: #d77bf0;
   position: absolute;
   top: 0px;
   left: 0px;
-  //border: 1px solid $dark2;
+  border: 1px solid $dark2;
+  background-color: transparent;
+  backdrop-filter: blur(3px);
   border-radius: 10px;
   width: 100px;
   height: 100px;
@@ -393,4 +407,69 @@ $funky2: #d77bf0;
 .logo:hover
 {
   filter: grayscale(0%);
+  background-color: $bright;
+}
+
+.section.four h1
+{
+  color: $funky1;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 60px;
+  text-shadow: 5px 5px 0px $dark2;
+  margin: 30px;
+  position: absolute;
+  top: -150px;
+  left: 35%;
+}
+
+.projectsContainer
+{
+  
+  height: 60vh;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card
+{
+  width: 15vw;
+  height: 50vh;
+  background-position: center;
+  background-size:cover;
+  margin: 1vw;
+  border-radius: 3vw;
+  display: inline-block;
+  cursor: pointer;
+  filter: grayscale(100%);
+}
+
+
+
+.contactContainer
+{
+  position: absolute;
+  overflow: hidden;
+  padding: 20px;
+  left: 20%;
+  top: 480vh;
+  z-index: 1;
+  width: 60%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 200px;
+}
+
+.contact
+{
+  background: $bright;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

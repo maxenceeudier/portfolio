@@ -12,8 +12,6 @@ function App() {
   const [h1Write, setH1Write] = useState<JSX.Element>();
   const [logosHardSkills, setLogosHardSkills] = useState<JSX.Element[]>();
 
-  
-
   useEffect(() => {
     const numStars = [120, 10, 5];
     const starContainers = ['rear', 'center', 'front'];
@@ -25,7 +23,6 @@ function App() {
     
       numStars.forEach((set, index) => {
         const container = document.querySelector(`.stars__${starContainers[index]}`);
-        console.log(container);
         for(let i = 0; i < numStars[index]; i ++) {
           container?.appendChild(star.cloneNode(true));
         }
@@ -46,63 +43,66 @@ useEffect(() => {
     let moune = document.getElementById("moune");
     let ground = document.getElementById("ground");
     let max = document.getElementById("max");
-    console.log(title);
-    window.addEventListener("scroll", () => {
+    let stratosphere = document.getElementById("stratos");
+    let textMoune = document.getElementById("textMoune");
+    let contact = document.getElementById("contact");
+    window.addEventListener("scroll", (e) => {
       let value = window.scrollY;
-      if (!value)
+      console.log(value);
+      if (value > 2900 && contact)
+      {
+        e.preventDefault();
+        return;
+      }
+        
+      if (!value && stratosphere)
+      {
         setMaxAnimation(true);
-      else
+        stratosphere.style.opacity = "1";
+      }
+      else if (stratosphere)
+      {
         setMaxAnimation(false);
+        stratosphere.style.opacity = "1";
+      }
+        
       if (title && firstMontains && secondMontains
-        && moune && ground && max)
+        && moune && ground && max && textMoune && contact)
       {
         moune.style.marginTop = 1.5 * value + 'px';
         title.style.marginTop = 1.5 * value + 'px';
         firstMontains.style.top = value * 0.5 + 'px';
         secondMontains.style.top = value * 1.2 + 'px';
         ground.style.top = value * 0 + 'px';
-        console.log(value);
-        if (value > 500 && value < 1500)
+        if (value > 500 && value < 1000 && !startWritting)
         {
-          if (value > 560)
-            moune.style.marginTop = 1 * value  + 'px';
-          moune.style.backgroundColor = '#161617';
-          moune.style.boxShadow = "none";
-          moune.style.transform = `scale(${(value / 560) * ((value - 500) / 100)})`;
+          const scale = (value / 560) * ((value - 500) / 100);
+          textMoune.style.opacity = "1";
+          textMoune.style.transform = `scale(${1/scale})`;
+          moune.style.transform = `scale(${scale})`;
         }
         else if (value < 500)
         {
-          moune.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-          moune.style.boxShadow = " 0px 0px 100px 10px #7bf0bf";
+          textMoune.style.transform = "scale(1)";
+          textMoune.style.opacity = "0";
           moune.style.transform = "scale(1)";
         }
-        else if (value < 2463)
+        else if (!startWritting)
         {
-          moune.style.backgroundColor = '#161617';
-          moune.style.boxShadow = "none";
-          moune.style.transform = "scale(30)"
+          if (value > 1500)
+            moune.style.transform = `scale(0.08)`;
+          else 
+          {
+            const ecart = 1000 - value;
+            const scale = ((1000 + ecart) / 560) * (((1000 + ecart) - 500) / 100);
+            textMoune.style.transform = `scale(${1/scale})`;
+            moune.style.transform = `scale(${scale})`;
+          }
         }
-        else
+        if (value > 780)
         {
-          moune.style.transform = "scale(0)"
-        }
-
-        console.log(value);
-        if (value > 1000)
           setSartWritting(true);
-
-        let h1Write = document.querySelectorAll("strong");
-        let pWrite = document.querySelectorAll("p");
-        if (value < 1200 && h1Write && pWrite)
-        {
-          h1Write.forEach(e => {if (e) e.style.color = '#fff'});
-          pWrite.forEach(e => {if (e) e.style.color = '#fff'});
-        }
-        else if (pWrite && h1Write)
-        {
-          h1Write.forEach(e => {if (e) e.style.color = '#adffdd'});
-          pWrite.forEach(e => {if (e) e.style.color = '#fff'});
-        }
+        } 
       }
 
     });
@@ -202,13 +202,13 @@ useEffect(() => {
         typewriter
         .typeString("<h1>Hello World !</h1><br/>")
         .pauseFor(300)
-        .typeString("I\'m Maxence, Dev <strong>Typescript/React/css/html</strong>")
+        .typeString("I\'m Maxence, Dev <strong>Typescript/React</strong>")
         .pauseFor(1500)
-        .deleteChars(25)
+        .deleteChars(16)
         .typeString('<strong>NodeJs/C/C++</strong>')
         .pauseFor(1500)
         .deleteChars(12)
-        .typeString('<strong>Fullstack and Passionate !</strong>')
+        .typeString('<strong>Fullstack !</strong>')
         .pauseFor(1000)
         .typeString('<br/><br/><p>After 5 years in the French army,<br/>\
         I found a new passion for coding.<br/>\
@@ -218,7 +218,7 @@ useEffect(() => {
         .start();
         }}/>
         setH1Write(typeWritter);
-    }
+      }
 
   }, [startWritting])
 
@@ -241,12 +241,11 @@ useEffect(() => {
       const logosHardSkillsTmp : JSX.Element[] = [];
       for (let i = 0; i < 14; i++)
       {
-        logosHardSkillsTmp.push(<div className='logo' data-speed={`${i % 2? -(i / 2) + 1: i/ 2 + 1}`}><img alt="logo" src={require(`./assets/logo${i}.png`)} style={{width:'50%', height: '50%'}}/></div>)
+        logosHardSkillsTmp.push(<div className='logo' data-speed={`${i % 2? -(i / 2) + 1: i/ 2 + 1}`}><img alt="logo" src={require(`./assets/logo${i}.png`)} style={{width:'60%', height: '60%'}}/></div>)
       }
       setLogosHardSkills([...logosHardSkillsTmp]);
     }
-    else
-    {
+  
       document.addEventListener("mousemove", (e) => {
         const logos = document.querySelectorAll<HTMLElement>(".logo");
         logos.forEach((layer, i) => {
@@ -265,10 +264,30 @@ useEffect(() => {
 
         });
       });
-    }
+    
   }, [logosHardSkills])
 
- 
+
+
+  const cardPrevIndexRef = useRef(-1);
+  const items = document.querySelectorAll<HTMLElement>('.card')
+
+  const expand = (item: Element, i: number) => {
+    console.log('-------in expand');
+    console.log(i);
+    console.log(cardPrevIndexRef.current);
+    gsap.to(items, {
+      width:  i !== cardPrevIndexRef.current? '15vw' : '8vw',
+      duration: 2,
+      ease: 'elastic(1, .6)'
+    })    
+    gsap.to(item, {
+      width: i === cardPrevIndexRef.current? '42vw' : '15vw',
+      duration: 2.5,
+      ease: 'elastic(1, .3)'
+    })
+  }
+
 
   return (
     <div>
@@ -282,14 +301,19 @@ useEffect(() => {
           </span>
       </div>
       
-      <div className='moune' id='moune'></div>
+      <div className='moune' id='moune'>
+        <div className='presentationContainer' id='textMoune'>
+          <div id='textWrite'>{h1Write}</div>
+        </div>
+      </div>
+      <div className="stratosphere" id='stratos'></div>
       <section className="section one">
         <div className="stars">
           <div className="stars__rear"></div>
           <div className="stars__center"></div>
           <div className="stars__front"></div>
         </div>
-        <div className="stratosphere"></div>
+        
         <div className='montainsContainer'>
           <div className="secondMontains" id='secondMontains'></div>
           <h1 className='Title' id='title'>Software Engineer</h1>
@@ -302,12 +326,8 @@ useEffect(() => {
           </div>
         </div>
       </section>
-      <section className='section two'>
-        
-        <div className='presentationContainer'>
-          <div id='textWrite'>{h1Write}</div>
-        </div>
-      </section>
+       <section className='section two'></section>
+
       <section className='section tree'>
         <div className='hardSkills'>
           <div className='hardSkillsContainer'>
@@ -316,9 +336,21 @@ useEffect(() => {
           </div>
         </div>
       </section>
-      <section className='section tree'>
-        
+
+      <section className='section four'>
+        <h1>Projects</h1>
+        <div className='projectsContainer'>
+          <div className='card' style={{backgroundImage: `url(${require('./assets/test.jpg')})`}} onClick={ () => {cardPrevIndexRef.current = cardPrevIndexRef.current === 0 ? -1 : 0; expand(items[0], 0)}}></div>
+          <div className='card'  style={{backgroundImage: `url(${require('./assets/logo1.png')})`}}  onClick={ () => {cardPrevIndexRef.current = cardPrevIndexRef.current === 1 ? -1 : 1; expand(items[1], 1)}}></div>
+          <div className='card'  style={{backgroundImage: `url(${require('./assets/logo2.png')})`}}  onClick={ () => {cardPrevIndexRef.current = cardPrevIndexRef.current === 2 ? -1 : 2; expand(items[2], 2)}}></div>
+          <div className='card'  style={{backgroundImage: `url(${require('./assets/logo0.png')})`}}  onClick={ () => {cardPrevIndexRef.current = cardPrevIndexRef.current === 3 ? -1 : 3; expand(items[3], 3)}}></div>
+        </div>
       </section>
+      <div className="contactContainer" id='contact'>
+        <div className='contact'><img alt='gitHub' src={require('./assets/logo10.png')} width={42} height={42}/></div>
+        <div className='contact'><img alt='LK' src={require('./assets/linkedin.png')} width={42} height={42}/></div>
+        <div className='contact'><img alt='mail' src={require('./assets/mail.png')} width={42} height={42}/></div>
+      </div>
     </div>
   );
 }
